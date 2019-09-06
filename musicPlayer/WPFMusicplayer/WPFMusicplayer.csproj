@@ -94,5 +94,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assert\Background\concrete1.jpg" />
+    <Resource Include="Assert\Background\concrete2.jpg" />
+    <Resource Include="Assert\Background\concrete3.jpg" />
+    <Resource Include="Assert\Background\concrete4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assert\Texture\ChalkTexture1.JPG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

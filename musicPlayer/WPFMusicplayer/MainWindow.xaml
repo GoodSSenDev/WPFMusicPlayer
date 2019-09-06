@@ -4,9 +4,274 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFMusicplayer"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        mc:Ignorable="d" Height="450" Width="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+	<Window.Resources>
+		<Style x:Key="BtnStyle" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Grid>
+							<Ellipse  x:Name="ell" Fill="Blue" StrokeThickness="1.2">
+								<Ellipse.Stroke>
+									<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+								</Ellipse.Stroke>
+							</Ellipse>
+							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="true">
+								<Setter Property="Fill" Value="Green" TargetName="ell"></Setter>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="true">
+								<Setter Property="Fill" Value="Red" TargetName="ell"></Setter>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
+	
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="0*"/>
+			<ColumnDefinition Width="139*"/>
+		</Grid.ColumnDefinitions>
+		<!--Background-->
+		<Grid.Background>
+			<ImageBrush ImageSource="Assert/Background/concrete1.jpg" Stretch="UniformToFill"/>
+
+		</Grid.Background>
+		<!--Left Side Top Side Grid-->
+		<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="225" Width="350" Grid.ColumnSpan="3">
+
+		</Grid>
+		<!--Left Side Bottom Side Grid-->
+		<Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="225" Width="350" Grid.ColumnSpan="3">
+			<Grid HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="350">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="23*"/>
+					<ColumnDefinition Width="2*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.Background>
+					<ImageBrush/>
+				</Grid.Background>
+				<Button x:Name="pauseBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="50,86,232,-86">
+					<Button.Template>
+						<ControlTemplate TargetType="Button">
+							<Grid>
+								<Ellipse  x:Name="ell" StrokeThickness="1.2">
+									<Ellipse.Stroke>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Ellipse.Stroke>
+								</Ellipse>
+								<Grid Width="20">
+									<Rectangle  HorizontalAlignment="Left" Height="25" Width="6.5"  StrokeThickness="30">
+										<Rectangle.Stroke>
+											<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+										</Rectangle.Stroke>
+									</Rectangle>
+									<Rectangle  HorizontalAlignment="Center" Height="25" Width="5"  Stroke="Transparent" />
+									<Rectangle  HorizontalAlignment="Right" Height="25"  Width="6.5" StrokeThickness="30"  >
+										<Rectangle.Stroke>
+											<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+										</Rectangle.Stroke>
+									</Rectangle>
+								</Grid>
+								<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="true">
+									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="true">
+									<Setter Property="Fill" Value="Red" TargetName="ell"></Setter>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Button.Template>
+				</Button>
+				<Button x:Name="startBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="155,0,127,0" RenderTransformOrigin="2.3,0.525">
+					<Button.Template>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
+									<Ellipse.Stroke>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Ellipse.Stroke>
+								</Ellipse>
+								<Polygon Points="10,8 10,33 35,20.1">
+									<Polygon.Fill>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Polygon.Fill>
+								</Polygon>
+								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="true">
+									<Setter Property="Fill" Value="Red" TargetName="ell"></Setter>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="true">
+									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Button.Template>
+				</Button>
+				<Button x:Name="add10Btn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="225,0,57,0" RenderTransformOrigin="2.3,0.525">
+					<Button.Template>
+						<ControlTemplate TargetType="Button">
+							<Grid>
+								<Ellipse  x:Name="ell" StrokeThickness="1.2">
+									<Ellipse.Stroke>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Ellipse.Stroke>
+								</Ellipse>
+								<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="true">
+									<Setter Property="Fill" Value="Gold" TargetName="ell"></Setter>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="true">
+									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Button.Template>
+					<TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="40" >
+						<TextBlock.Foreground>
+							<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+						</TextBlock.Foreground>
+						<TextBlock.Text>+10</TextBlock.Text>
+					</TextBlock>
+				</Button>
+				<Button x:Name="minus10Btn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="85,0,197,0" RenderTransformOrigin="2.3,0.525">
+					<Button.Template>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
+									<Ellipse.Stroke>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Ellipse.Stroke>
+								</Ellipse>
+								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="true">
+									<Setter Property="Fill" Value="Gold" TargetName="ell"></Setter>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="true">
+									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Button.Template>
+					<TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="30" >
+						<TextBlock.Foreground>
+							<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+						</TextBlock.Foreground>
+						<TextBlock.Text>-10</TextBlock.Text>
+					</TextBlock>
+				</Button>
+				<Button x:Name="rightNextBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Width ="40" Height="40" Margin="290,0,20,0" RenderTransformOrigin="2.3,0.525" Grid.ColumnSpan="2">
+					<Button.Template>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
+									<Ellipse.Stroke>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Ellipse.Stroke>
+								</Ellipse>
+								<Polygon Points="10,8 10,33 28,20.1">
+									<Polygon.Fill>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Polygon.Fill>
+								</Polygon>
+								<Polygon Points="24,8 24,33 38,20.1">
+									<Polygon.Fill>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Polygon.Fill>
+								</Polygon>
+
+								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="true">
+									<Setter Property="Fill" Value="Green" TargetName="ell"></Setter>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="true">
+									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Button.Template>
+				</Button>
+				<Button x:Name="leftNextBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="20,-1,262,1" RenderTransformOrigin="0.512,0.512">
+					<Button.RenderTransform>
+						<TransformGroup>
+							<ScaleTransform/>
+							<SkewTransform/>
+							<RotateTransform Angle="180"/>
+							<TranslateTransform/>
+						</TransformGroup>
+					</Button.RenderTransform>
+					<Button.Template>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
+									<Ellipse.Stroke>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Ellipse.Stroke>
+								</Ellipse>
+								<Polygon Points="10,8 10,33 28,20.1">
+									<Polygon.Fill>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Polygon.Fill>
+								</Polygon>
+								<Polygon Points="24,8 24,33 38,20.1">
+									<Polygon.Fill>
+										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+									</Polygon.Fill>
+								</Polygon>
+
+								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="true">
+									<Setter Property="Fill" Value="Green" TargetName="ell"></Setter>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="true">
+									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Button.Template>
+				</Button>
+
+
+
+			</Grid>
+			<ProgressBar x:Name ="audioProgress"  HorizontalAlignment="Left" Height="40" Margin="10,148,0,0" VerticalAlignment="Top" Width="330">
+				<ProgressBar.Template>
+					<ControlTemplate TargetType="ProgressBar">
+						<Grid x:Name="Root">
+							<Border Name="PART_Track" Background="Transparent" BorderBrush="Gray" Opacity="1" BorderThickness="2">
+
+							</Border>
+							<Border Name="PART_Indicator" BorderBrush="Transparent" BorderThickness="2" HorizontalAlignment="Left">
+								<Border.Background>
+									<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+								</Border.Background>
+							</Border>
+						</Grid>
+					</ControlTemplate>
+				</ProgressBar.Template>
+			</ProgressBar>
+		</Grid>
+
+		<!--RIght Side Grid-->
+		<Grid HorizontalAlignment="Right" Width="350" Grid.Column="2"/>
+	</Grid>
 </Window>
