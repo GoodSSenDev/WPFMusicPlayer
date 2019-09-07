@@ -23,6 +23,24 @@ namespace WPFMusicplayer
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			this.MouseLeftButtonDown += MainWindowMove_MouseLeftButtonDown;
+		}
+
+		
+		private void AddPath_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void ExitBtn_Click_1(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+
+		protected void MainWindowMove_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			this.DragMove();
 		}
 	}
 }
