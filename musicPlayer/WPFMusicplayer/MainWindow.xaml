@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFMusicplayer"
+		DataContext="{Binding RelativeSource= {RelativeSource Self}}"
         mc:Ignorable="d" Height="450" Width="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderThickness="0">
 	<Window.Resources>
 		<Style x:Key="BtnStyle" TargetType="Button">
@@ -305,6 +306,7 @@
 				</Button.Template>
 			</Button>
 			<StackPanel Orientation="Horizontal">
+				<!--PATH BUTTON-->
 				<Button x:Name="addPath" Background="Transparent"  BorderBrush="Gray" BorderThickness="1" Height="31" Width="63" Click="AddPath_Click">
 					<Button.Foreground>
 						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
@@ -331,7 +333,8 @@
 					</Button.Template>
 
 				</Button>
-				<Label x:Name="pathLabel" FontSize="14" FontWeight="Bold" BorderBrush="Gray" BorderThickness="1" Width="277">
+				<!--Path Label-->
+				<Label x:Name="pathLabel" Content="{Binding Path = FilePath}" FontSize="14" FontWeight="Bold" BorderBrush="Gray" BorderThickness="1" Width="277">
 					<Label.Foreground>
 						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 					</Label.Foreground>
@@ -351,10 +354,7 @@
 				</TextBox>
 			</StackPanel>
 			<TextBlock/>
-			<ListBox x:Name="playList" Background="Transparent" Height="310" BorderThickness="2" Margin="0,0,10,0">
-				<ListBox.BorderBrush>
-					<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-				</ListBox.BorderBrush>
+			<ListBox x:Name="playList" ItemsSource ="{Binding Path = PlayList}" BorderBrush="Transparent" Background="Transparent" Height="310" Margin="0,0,10,0">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<Grid Margin="0,2">
@@ -362,12 +362,12 @@
 								<ColumnDefinition Width="265" />
 								<ColumnDefinition Width="70" />
 							</Grid.ColumnDefinitions>
-							<TextBlock Grid.Column="0" Text="{Binding Title}">
+							<TextBlock Grid.Column="0" Text="{Binding FileName}">
 								<TextBlock.Foreground>
 									<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 								</TextBlock.Foreground>
 							</TextBlock>
-							<TextBlock Grid.Column="1" Text="{Binding Time}">
+							<TextBlock Grid.Column="1" Text="{Binding Length}">
 								<TextBlock.Foreground>
 									<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 								</TextBlock.Foreground>
