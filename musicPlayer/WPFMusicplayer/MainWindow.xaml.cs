@@ -33,6 +33,17 @@ namespace WPFMusicplayer
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
+		string _searchLabel;
+		public string SearchLabel
+		{
+			get { return _searchLabel; }
+			set
+			{
+				_searchLabel = value;
+				PropertyChanged(this, new PropertyChangedEventArgs("SearchLabel"));
+				makePlayList(_searchLabel);
+			}
+		}
 		string _filePath;
 		public string FilePath
 		{
@@ -50,6 +61,17 @@ namespace WPFMusicplayer
 			this.MouseLeftButtonDown += MainWindowMove_MouseLeftButtonDown;
 		}
 
+		private void makePlayList(string keyWord)
+		{
+			_playList.Clear();
+			DirectoryInfo folder = new DirectoryInfo(FilePath);
+			FileInfo[] files = folder.GetFiles("*"+keyWord+"*.mp3",0);
+			foreach (FileInfo file in files)
+			{
+				Console.Write(file.FullName);
+				_playList.Add(new MusicElement(file.FullName));
+			}
+		}
 		
 		private void AddPath_Click(object sender, RoutedEventArgs e)
 		{
@@ -58,14 +80,7 @@ namespace WPFMusicplayer
 			if (cofd.ShowDialog() == CommonFileDialogResult.Ok)
 			{
 				FilePath = cofd.FileName;
-				_playList.Clear();
-				DirectoryInfo folder = new DirectoryInfo(FilePath);
-				FileInfo[] files = folder.GetFiles("*.mp3"); 
-				foreach(FileInfo file in files)
-				{
-					Console.Write(file.FullName);
-					_playList.Add(new MusicElement(file.FullName));
-				}
+				makePlayList(_searchLabel);
 
 			}
 		}

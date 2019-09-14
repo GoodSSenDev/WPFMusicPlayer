@@ -347,20 +347,21 @@
 						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 					</Label.Foreground>
 				</Label>
-				<TextBox x:Name="searchLabel" Width="277" FontSize="12"  Background="Transparent" BorderBrush="Green" BorderThickness="1" >
+				<TextBox x:Name="searchLabel" Text ="{Binding Path = SearchLabel,UpdateSourceTrigger=PropertyChanged}"  Width="277" FontSize="12"  Background="Transparent" BorderBrush="Green" BorderThickness="1" >
 					<TextBox.Foreground>
 						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 					</TextBox.Foreground>
 				</TextBox>
 			</StackPanel>
 			<TextBlock/>
-			<ListBox x:Name="playList" ItemsSource ="{Binding Path = PlayList}" BorderBrush="Transparent" Background="Transparent" Height="310" Margin="0,0,10,0">
+			<ListBox x:Name="playList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource ="{Binding Path = PlayList}" BorderBrush="Transparent" Background="Transparent" Height="310" Margin="0,0,10,0">
+
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<Grid Margin="0,2">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="265" />
-								<ColumnDefinition Width="70" />
+								<ColumnDefinition Width="282" />
+								<ColumnDefinition Width="54" />
 							</Grid.ColumnDefinitions>
 							<TextBlock Grid.Column="0" Text="{Binding FileName}">
 								<TextBlock.Foreground>
