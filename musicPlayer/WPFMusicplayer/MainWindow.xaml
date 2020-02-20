@@ -4,36 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFMusicplayer"
-		DataContext="{Binding RelativeSource= {RelativeSource Self}}"
         mc:Ignorable="d" Height="450" Width="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderThickness="0">
-	<Window.Resources>
-		<Style x:Key="BtnStyle" TargetType="Button">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Grid>
-							<Ellipse  x:Name="ell" Fill="Blue" StrokeThickness="1.2">
-								<Ellipse.Stroke>
-									<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-								</Ellipse.Stroke>
-							</Ellipse>
-							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-						</Grid>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsMouseOver" Value="true">
-								<Setter Property="Fill" Value="Green" TargetName="ell"></Setter>
-							</Trigger>
-							<Trigger Property="IsPressed" Value="true">
-								<Setter Property="Fill" Value="Red" TargetName="ell"></Setter>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-	</Window.Resources>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source ="ChalkStyle1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
-	<Grid>
+    </Window.Resources>
+
+    <Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition/>
 			<ColumnDefinition Width="0*"/>
@@ -47,7 +28,8 @@
 		<!--Left Side Top Side Grid-->
 		<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="225" Width="350" Grid.ColumnSpan="3">
 
-		</Grid>
+
+        </Grid>
 		<!--Left Side Bottom Side Grid-->
 		<Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="225" Width="350" Grid.ColumnSpan="3">
 			<Grid HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="350">
@@ -55,201 +37,170 @@
 					<ColumnDefinition Width="23*"/>
 					<ColumnDefinition Width="2*"/>
 				</Grid.ColumnDefinitions>
-				<Grid.Background>
-					<ImageBrush/>
-				</Grid.Background>
-				<Button x:Name="pauseBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="50,86,232,-86">
-					<Button.Template>
-						<ControlTemplate TargetType="Button">
-							<Grid>
-								<Ellipse  x:Name="ell" StrokeThickness="1.2">
-									<Ellipse.Stroke>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Ellipse.Stroke>
-								</Ellipse>
-								<Grid Width="20">
-									<Rectangle  HorizontalAlignment="Left" Height="25" Width="6.5"  StrokeThickness="30">
-										<Rectangle.Stroke>
-											<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-										</Rectangle.Stroke>
-									</Rectangle>
-									<Rectangle  HorizontalAlignment="Center" Height="25" Width="5"  Stroke="Transparent" />
-									<Rectangle  HorizontalAlignment="Right" Height="25"  Width="6.5" StrokeThickness="30"  >
-										<Rectangle.Stroke>
-											<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-										</Rectangle.Stroke>
-									</Rectangle>
-								</Grid>
-								<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-							</Grid>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsMouseOver" Value="true">
-									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
-								</Trigger>
-								<Trigger Property="IsPressed" Value="true">
-									<Setter Property="Fill" Value="Red" TargetName="ell"></Setter>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Button.Template>
-				</Button>
-				<Button x:Name="startBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="155,0,127,0" RenderTransformOrigin="2.3,0.525">
-					<Button.Template>
-						<ControlTemplate TargetType="{x:Type Button}">
-							<Grid>
-								<Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
-									<Ellipse.Stroke>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Ellipse.Stroke>
-								</Ellipse>
-								<Polygon Points="10,8 10,33 35,20.1">
-									<Polygon.Fill>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Polygon.Fill>
-								</Polygon>
-								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-							</Grid>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsMouseOver" Value="true">
-									<Setter Property="Fill" Value="Red" TargetName="ell"></Setter>
-								</Trigger>
-								<Trigger Property="IsPressed" Value="true">
-									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Button.Template>
-				</Button>
-				<Button x:Name="add10Btn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="225,0,57,0" RenderTransformOrigin="2.3,0.525">
-					<Button.Template>
-						<ControlTemplate TargetType="Button">
-							<Grid>
-								<Ellipse  x:Name="ell" StrokeThickness="1.2">
-									<Ellipse.Stroke>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Ellipse.Stroke>
-								</Ellipse>
-								<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-							</Grid>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsMouseOver" Value="true">
-									<Setter Property="Fill" Value="Gold" TargetName="ell"></Setter>
-								</Trigger>
-								<Trigger Property="IsPressed" Value="true">
-									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Button.Template>
-					<TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="40" >
+                <Grid.Background>
+                    <ImageBrush/>
+                </Grid.Background>
+                <Button x:Name="startBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="155,0,127,0" 
+                        RenderTransformOrigin="2.3,0.525" Command= "{Binding StartPauseCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
+                                    <Ellipse.Stroke>
+                                        <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                                    </Ellipse.Stroke>
+                                </Ellipse>
+                                <Path Name="startPausePath">
+                                    <Path.Fill>
+                                        <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                                    </Path.Fill>
+                                    <Path.Data>
+                                        <PathGeometry>
+                                            <PathFigure x:Name="fig1" StartPoint="10, 8" IsClosed="True" >
+                                                <LineSegment x:Name="fig1P1" Point="35, 20.1"/>
+                                                <LineSegment x:Name="fig1P2" Point="35, 20.1"/>
+                                                <LineSegment x:Name="fig1P3" Point="10,20.1"/>
+                                            </PathFigure>
+                                            <PathFigure x:Name="fig2" StartPoint="10, 33" IsClosed="True">
+                                                <LineSegment x:Name="fig2P1" Point="35, 20.1"/>
+                                                <LineSegment x:Name="fig2P2" Point="35, 20.1"/>
+                                                <LineSegment x:Name="fig2P3" Point="10, 20.1"/>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                        <!--<PathGeometry>
+										<PathFigure x:Name="fig1" StartPoint="9, 8" IsClosed="True" >
+											<LineSegment x:Name="fig1P1" Point="16.5, 8"/>
+											<LineSegment x:Name="fig1P2" Point="16.5,33"/>
+											<LineSegment x:Name="fig1P3" Point="9, 33"/>
+										</PathFigure>
+										<PathFigure x:Name="fig2" StartPoint="23.5, 8" IsClosed="True">
+											<LineSegment x:Name="fig2P1" Point="31, 8"/>
+											<LineSegment x:Name="fig2P2" Point="31, 33"/>
+											<LineSegment x:Name="fig2P3" Point="23.5, 33"/>
+										</PathFigure>
+									</PathGeometry>-->
+                                    </Path.Data>
+                                </Path>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=musicPlayer, Path=IsPlaying}" Value="true">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1"
+														Storyboard.TargetProperty="StartPoint"
+														From="10, 8" To="31, 8" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1P1"
+														Storyboard.TargetProperty="Point"
+														From="35, 20.1" To="31, 33" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1P2"
+														Storyboard.TargetProperty="Point"
+														From="35, 20.1" To="23.5, 33" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1P3"
+														Storyboard.TargetProperty="Point"
+														From="10,20.1" To="23.5, 8" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2"
+														Storyboard.TargetProperty="StartPoint"
+														From="10, 33" To="16.5, 8" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2P1"
+														Storyboard.TargetProperty="Point"
+														From="35, 20.1" To="16.5,33" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2P2"
+														Storyboard.TargetProperty="Point"
+														From="35, 20.1" To="9, 33" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2P3"
+														Storyboard.TargetProperty="Point"
+														From="10, 20.1" To="9, 8" Duration="00:00:00.3"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=musicPlayer, Path=IsPlaying}" Value="false">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1"
+														Storyboard.TargetProperty="StartPoint"
+														From="31, 8" To="10, 8" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1P1"
+														Storyboard.TargetProperty="Point"
+														From="31, 33" To="35, 20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1P2"
+														Storyboard.TargetProperty="Point"
+														From="23.5, 33" To="35, 20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1P3"
+														Storyboard.TargetProperty="Point"
+														From="23.5, 8" To="10,20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2"
+														Storyboard.TargetProperty="StartPoint"
+														From="16.5, 8" To="10, 33" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2P1"
+														Storyboard.TargetProperty="Point"
+														From="16.5,33" To="35, 20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2P2"
+														Storyboard.TargetProperty="Point"
+														From="9, 33" To="35, 20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2P3"
+														Storyboard.TargetProperty="Point"
+														From="9, 8" To="10, 20.1" Duration="00:00:00.3"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                </DataTrigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Fill" Value="Red" TargetName="ell"></Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="add10Btn" BorderBrush ="{x:Null}" Style="{StaticResource addNumBtnStyle}" Foreground="Transparent"  Height="40" Margin="225,0,57,0" RenderTransformOrigin="2.3,0.525">
+                    <TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="40" >
 						<TextBlock.Foreground>
 							<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 						</TextBlock.Foreground>
 						<TextBlock.Text>+10</TextBlock.Text>
 					</TextBlock>
 				</Button>
-				<Button x:Name="minus10Btn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="85,0,197,0" RenderTransformOrigin="2.3,0.525">
-					<Button.Template>
-						<ControlTemplate TargetType="{x:Type Button}">
-							<Grid>
-								<Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
-									<Ellipse.Stroke>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Ellipse.Stroke>
-								</Ellipse>
-								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-							</Grid>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsMouseOver" Value="true">
-									<Setter Property="Fill" Value="Gold" TargetName="ell"></Setter>
-								</Trigger>
-								<Trigger Property="IsPressed" Value="true">
-									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Button.Template>
-					<TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="30" >
+                <Button x:Name="minus10Btn" BorderBrush ="{x:Null}" Style="{StaticResource minusNumBtnStyle}"  Foreground="Transparent"  Height="40" Margin="85,0,197,0" RenderTransformOrigin="2.3,0.525">
+                    <TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="30" >
 						<TextBlock.Foreground>
 							<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 						</TextBlock.Foreground>
 						<TextBlock.Text>-10</TextBlock.Text>
 					</TextBlock>
 				</Button>
-				<Button x:Name="rightNextBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Width ="40" Height="40" Margin="290,0,20,0" RenderTransformOrigin="2.3,0.525" Grid.ColumnSpan="2">
-					<Button.Template>
-						<ControlTemplate TargetType="{x:Type Button}">
-							<Grid>
-								<Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
-									<Ellipse.Stroke>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Ellipse.Stroke>
-								</Ellipse>
-								<Polygon Points="10,8 10,33 28,20.1">
-									<Polygon.Fill>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Polygon.Fill>
-								</Polygon>
-								<Polygon Points="24,8 24,33 38,20.1">
-									<Polygon.Fill>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Polygon.Fill>
-								</Polygon>
-
-								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-							</Grid>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsMouseOver" Value="true">
-									<Setter Property="Fill" Value="Green" TargetName="ell"></Setter>
-								</Trigger>
-								<Trigger Property="IsPressed" Value="true">
-									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Button.Template>
-				</Button>
-				<Button x:Name="leftNextBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="20,-1,262,1" RenderTransformOrigin="0.512,0.512">
-					<Button.RenderTransform>
-						<TransformGroup>
-							<ScaleTransform/>
-							<SkewTransform/>
-							<RotateTransform Angle="180"/>
-							<TranslateTransform/>
-						</TransformGroup>
-					</Button.RenderTransform>
-					<Button.Template>
-						<ControlTemplate TargetType="{x:Type Button}">
-							<Grid>
-								<Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
-									<Ellipse.Stroke>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Ellipse.Stroke>
-								</Ellipse>
-								<Polygon Points="10,8 10,33 28,20.1">
-									<Polygon.Fill>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Polygon.Fill>
-								</Polygon>
-								<Polygon Points="24,8 24,33 38,20.1">
-									<Polygon.Fill>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Polygon.Fill>
-								</Polygon>
-
-								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-							</Grid>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsMouseOver" Value="true">
-									<Setter Property="Fill" Value="Green" TargetName="ell"></Setter>
-								</Trigger>
-								<Trigger Property="IsPressed" Value="true">
-									<Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Button.Template>
-				</Button>
+                <Button x:Name="rightNextBtn" BorderBrush ="{x:Null}" Style="{StaticResource nextBtnStyle}" Foreground="Transparent"  Width ="40" Height="40" Margin="290,0,20,0" RenderTransformOrigin="2.3,0.525" Grid.ColumnSpan="2">
+                </Button>
+                <Button x:Name="leftNextBtn" BorderBrush ="{x:Null}" Style="{StaticResource beforeBtnStyle}" Foreground="Transparent"  Height="40" Margin="20,0,262,0" RenderTransformOrigin="0.512,0.512">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-180"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
 			</Grid>
 			<ProgressBar x:Name ="audioProgress"  HorizontalAlignment="Left" Height="40" Margin="10,148,0,0" VerticalAlignment="Top" Width="330">
 				<ProgressBar.Template>
@@ -282,7 +233,7 @@
 		</Grid>
 
 
-		<!--RIght Side Grid-->
+		<!--Right Side Grid-->
 		<StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="350" Grid.Column="2">
 			<Button x:Name="exitBtn"  HorizontalAlignment="Right" Width="23" Height="21" RenderTransformOrigin="0.5,0.5" Click="ExitBtn_Click_1">
 				<Button.Template>
@@ -307,8 +258,8 @@
 			</Button>
 			<StackPanel Orientation="Horizontal">
 				<!--PATH BUTTON-->
-				<Button x:Name="addPath" Background="Transparent"  BorderBrush="Gray" BorderThickness="1" Height="31" Width="63" Click="AddPath_Click">
-					<Button.Foreground>
+                <Button x:Name="addPath" Background="Transparent"  BorderBrush="Gray" BorderThickness="1" Height="31" Width="63" Command="{Binding OpenFolderCommand}">
+                    <Button.Foreground>
 						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 					</Button.Foreground>
 					<Button.Template>
@@ -334,7 +285,7 @@
 
 				</Button>
 				<!--Path Label-->
-				<Label x:Name="pathLabel" Content="{Binding Path = FilePath}" FontSize="14" FontWeight="Bold" BorderBrush="Gray" BorderThickness="1" Width="277">
+                <Label x:Name="pathLabel" Content="{Binding Path = FilePath,UpdateSourceTrigger=PropertyChanged}" FontSize="14" FontWeight="Bold" BorderBrush="Gray" BorderThickness="1" Width="277">
 					<Label.Foreground>
 						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 					</Label.Foreground>
@@ -354,7 +305,10 @@
 				</TextBox>
 			</StackPanel>
 			<TextBlock/>
-			<ListBox x:Name="playList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource ="{Binding Path = PlayList}" BorderBrush="Transparent" Background="Transparent" Height="310" Margin="0,0,10,0">
+			<ListBox x:Name="playList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource ="{Binding Path = PlayList}" 
+                     SelectedItem="{Binding SelectedItem}"
+                     BorderBrush="Transparent" Background="Transparent" Height="310" Margin="0,0,10,0" SelectionChanged="playList_SelectionChanged">
 
 				<ListBox.ItemTemplate>
 					<DataTemplate>
