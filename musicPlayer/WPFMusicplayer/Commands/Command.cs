@@ -10,8 +10,8 @@ namespace WPFMusicplayer.Commands
     public class Command : ICommand
     {
 
-        Action<object> _executeMethod;
-        Func<object, bool> _canexecuteMethod;
+        readonly Action<object> _executeMethod;
+        readonly Func<object, bool> _canexecuteMethod;
 
         public Command(Action<object> executeMethod, Func<object, bool> canexecuteMethod)
         {

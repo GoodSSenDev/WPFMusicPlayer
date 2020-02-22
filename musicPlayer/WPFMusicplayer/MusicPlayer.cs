@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using NAudio.Wave;
 
 namespace WPFMusicplayer
 {
-    public class MusicPlayer
+    public class MusicPlayer : INotifyPropertyChanged
     {
 
         public static MusicPlayer _instance;
@@ -19,16 +20,23 @@ namespace WPFMusicplayer
 
         private BlockAlignReductionStream mp3Stream;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private bool _isPlaying;
         public bool IsPlaying
         {
-            get;set;
+            get { return _isPlaying; }
+            set
+            {
+                _isPlaying = value;
+                OnPropertyChanged("IsPlaying");
+            }
         }
 
 
         private MusicPlayer() 
         {
-            IsPlaying = false;
-
+            _isPlaying = false;
 
         }
         public static MusicPlayer Instance
@@ -71,7 +79,7 @@ namespace WPFMusicplayer
         public void IntiFile(MusicElement file)
         {
             //stop a song currently playing
-            Stop();
+            this.Stop();
 
 
             //and close the stream of current song
@@ -80,7 +88,6 @@ namespace WPFMusicplayer
                 return;
             try
             {
-                MessageBox.Show("" + (System.IO.Path.GetExtension((TagLib.File.Create(file.Path)).Name)));
                 if (file.Type == MusicElement.Extension.MP3)
                     InitMP3(file.Path);
                 else
@@ -138,6 +145,10 @@ namespace WPFMusicplayer
                 directSoundOut = null;
             }
 
+        }
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

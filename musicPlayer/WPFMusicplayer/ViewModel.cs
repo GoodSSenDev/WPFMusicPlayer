@@ -15,12 +15,16 @@ namespace WPFMusicplayer
 {
     public class ViewModel : INotifyPropertyChanged
 	{
-		MusicPlayer musicPlayer;
+		public MusicPlayer MusicEngine
+		{
+			get;
+			set;
+		}
 
 		public ViewModel()
 		{
-			musicPlayer = MusicPlayer.Instance;
-			StartPauseCommand = new Command(StartPauseExecuteMethod, StartPauseCanExecuteMethod);
+			MusicEngine = MusicPlayer.Instance;
+			StartPauseCommand = new DelegateCommand(StartPauseExecuteMethod, StartPauseCanExecuteMethod);
 			OpenFolderCommand = new Command(OpenFolderExecuteMethod, OpenFolderCanExecuteMethod);
 		}
 
@@ -46,7 +50,7 @@ namespace WPFMusicplayer
 			set 
 			{
 				_selectedItem = value;
-				musicPlayer.IntiFile(_selectedItem);
+				if (_selectedItem != null) MusicEngine.IntiFile(_selectedItem);
 			}
 		}
 
@@ -82,17 +86,18 @@ namespace WPFMusicplayer
 
 		private void StartPauseExecuteMethod(object path)
 		{
-			if (musicPlayer.IsPlaying)
+			if (MusicEngine.IsPlaying)
 			{
-				musicPlayer.Pause();
+				MusicEngine.Pause();
 				return;
 			}
-			musicPlayer.Play();
+			MusicEngine.Play();
 		}
 
 		private bool StartPauseCanExecuteMethod(object obj)
 		{
-
+			if (PlayList.Count <= 0)
+				return false;
 			return true;
 			
 		}
@@ -100,7 +105,7 @@ namespace WPFMusicplayer
 		private void OpenFolderExecuteMethod(object path)
 		{
 			//STOP Stream
-			musicPlayer.Stop();
+			MusicEngine.Stop();
 
 			CommonOpenFileDialog cofd = new CommonOpenFileDialog
 			{
@@ -127,7 +132,6 @@ namespace WPFMusicplayer
 			FileInfo[] files = folder.GetFiles("*" + keyWord + "*.mp3", 0);
 			foreach (FileInfo file in files)
 			{
-				Console.Write(file.FullName);
 				_playList.Add(new MP3Element(file.FullName));
 			}
 		}

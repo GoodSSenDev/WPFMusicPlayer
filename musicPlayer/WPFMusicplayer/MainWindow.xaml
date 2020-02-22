@@ -43,6 +43,7 @@
                 <Button x:Name="startBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="155,0,127,0" 
                         RenderTransformOrigin="2.3,0.525" Command= "{Binding StartPauseCommand}">
                     <Button.Template>
+                        
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid>
                                 <Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
@@ -82,8 +83,9 @@
                                     </Path.Data>
                                 </Path>
                             </Grid>
+
                             <ControlTemplate.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=musicPlayer, Path=IsPlaying}" Value="true">
+                                <DataTrigger Binding="{Binding MusicEngine.IsPlaying}" Value="true">
                                     <DataTrigger.EnterActions>
                                         <BeginStoryboard>
                                             <Storyboard>
@@ -118,12 +120,50 @@
                                                 <PointAnimation 
 														Storyboard.TargetName="fig2P3"
 														Storyboard.TargetProperty="Point"
-														From="10, 20.1" To="9, 8" Duration="00:00:00.3"/>
+														From="10, 20.1" To= "9, 8" Duration="00:00:00.3"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1"
+														Storyboard.TargetProperty="StartPoint"
+														From="31, 8" To="10, 8" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1P1"
+														Storyboard.TargetProperty="Point"
+														From="31, 33" To="35, 20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1P2"
+														Storyboard.TargetProperty="Point"
+														From="23.5, 33" To="35, 20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig1P3"
+														Storyboard.TargetProperty="Point"
+														From="23.5, 8" To="10,20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2"
+														Storyboard.TargetProperty="StartPoint"
+														From="16.5, 8" To="10, 33" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2P1"
+														Storyboard.TargetProperty="Point"
+														From="16.5,33" To="35, 20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2P2"
+														Storyboard.TargetProperty="Point"
+														From="9, 33" To="35, 20.1" Duration="00:00:00.3"/>
+                                                <PointAnimation 
+														Storyboard.TargetName="fig2P3"
+														Storyboard.TargetProperty="Point"
+														From="9, 8" To="10, 20.1" Duration="00:00:00.3"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding ElementName=musicPlayer, Path=IsPlaying}" Value="false">
+                                <!--<DataTrigger Binding="{Binding MusicEngine.IsPlaying}" Value="false">
                                     <DataTrigger.EnterActions>
                                         <BeginStoryboard>
                                             <Storyboard>
@@ -162,7 +202,7 @@
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </DataTrigger.EnterActions>
-                                </DataTrigger>
+                                </DataTrigger>-->
                                 <Trigger Property="IsMouseOver" Value="true">
                                     <Setter Property="Fill" Value="Red" TargetName="ell"></Setter>
                                 </Trigger>
