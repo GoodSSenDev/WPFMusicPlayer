@@ -14,7 +14,7 @@ namespace WPFMusicplayer
 
         public static MusicPlayer _instance;
         //Source and sync = where the data is going to 
-        private WaveFileReader waveStream;
+        private WaveFileReader wavStream;
 
         private DirectSoundOut directSoundOut;
 
@@ -54,11 +54,11 @@ namespace WPFMusicplayer
         private void InitWAV(string filePath)
         {
             //source
-            waveStream = new WaveFileReader(filePath);
+            wavStream = new WaveFileReader(filePath);
 
             directSoundOut = new DirectSoundOut();
 
-            directSoundOut.Init(new WaveChannel32(waveStream));
+            directSoundOut.Init(new WaveChannel32(wavStream));
 
         }
 
@@ -76,10 +76,21 @@ namespace WPFMusicplayer
 
         }
 
+        public WaveStream GetCurrentWaveStream()
+        {
+            if (wavStream != null)
+                return wavStream;
+
+            if (mp3Stream != null)
+                return mp3Stream;
+
+            return null;
+        }
+
         public void IntiFile(MusicElement file)
         {
             //stop a song currently playing
-            this.Stop();
+            this.StopAndCloseStream();
 
 
             //and close the stream of current song
@@ -97,7 +108,7 @@ namespace WPFMusicplayer
             {
                 MessageBox.Show("Exception occurs");
                 mp3Stream = null;
-                waveStream = null;
+                wavStream = null;
 
             }
 
@@ -129,10 +140,10 @@ namespace WPFMusicplayer
             {
                 directSoundOut.Stop();
             }
-            if(waveStream != null)
+            if(wavStream != null)
             {
-                waveStream.Close(); 
-                waveStream = null;
+                wavStream.Close(); 
+                wavStream = null;
             }
             if(mp3Stream != null)
             {

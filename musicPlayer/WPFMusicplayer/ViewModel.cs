@@ -24,24 +24,50 @@ namespace WPFMusicplayer
 		public ViewModel()
 		{
 			MusicEngine = MusicPlayer.Instance;
-			StartPauseCommand = new DelegateCommand(StartPauseExecuteMethod, StartPauseCanExecuteMethod);
+			StartPauseCommand = new DelegateCommand(StartPauseExecuteMethod, ControlRelatedButtonCanExecuteMethod);
+			NextFileCommand = new DelegateCommand(NextExecuteMethod, ControlRelatedButtonCanExecuteMethod);
+			BeforeFileCommand = new DelegateCommand(BeforeExecuteMethod, ControlRelatedButtonCanExecuteMethod);
+			SkipSecNextCommand = new DelegateCommand(SkipSecNextExecuteMethod, ControlRelatedButtonCanExecuteMethod);
+			SkipSecBeforeCommand = new DelegateCommand(SkipSecBeforeExecuteMethod, ControlRelatedButtonCanExecuteMethod);
 			OpenFolderCommand = new Command(OpenFolderExecuteMethod, OpenFolderCanExecuteMethod);
-		}
 
+		}
+		
 
 		#region properties
 
 		
 		ObservableCollection<MusicElement> _playList = new ObservableCollection<MusicElement>();
 
+
+		
 		public ICommand StartPauseCommand { get; set; }
 
+		public ICommand NextFileCommand { get; set; }
+
+		public ICommand BeforeFileCommand { get; set; }
+
+		public ICommand SkipSecNextCommand { get; set; }
+
+		public ICommand SkipSecBeforeCommand { get; set; }
+
 		public ICommand OpenFolderCommand { get; set; }
+
+
 
 		public ObservableCollection<MusicElement> PlayList
 		{
 			get { return _playList; }
 		}					
+
+		private int IndexOfSelectedItem { get; set; }
+
+
+		private bool IsIndexOfSelectedItemCurrent
+		{
+			get;set;
+		}
+
 
 		MusicElement _selectedItem;
 		public MusicElement SelectedItem
@@ -49,6 +75,7 @@ namespace WPFMusicplayer
 			get { return _selectedItem; }
 			set 
 			{
+				IsIndexOfSelectedItemCurrent = false;
 				_selectedItem = value;
 				if (_selectedItem != null) MusicEngine.IntiFile(_selectedItem);
 			}
@@ -84,7 +111,8 @@ namespace WPFMusicplayer
 
         #region Commands
 
-		private void StartPauseExecuteMethod(object path)
+		//Start/Pause button
+		private void StartPauseExecuteMethod(object obj)
 		{
 			if (MusicEngine.IsPlaying)
 			{
@@ -94,15 +122,56 @@ namespace WPFMusicplayer
 			MusicEngine.Play();
 		}
 
-		private bool StartPauseCanExecuteMethod(object obj)
+		private bool ControlRelatedButtonCanExecuteMethod(object obj)
 		{
+			if (_selectedItem == null)
+				return false;
 			if (PlayList.Count <= 0)
 				return false;
 			return true;
 			
 		}
 
-		private void OpenFolderExecuteMethod(object path)
+		//NextFileButton
+		private void NextExecuteMethod(object obj)
+		{
+			if(!IsIndexOfSelectedItemCurrent)
+			{
+				this.UpdateIndexOfSelectedItem();
+			}
+
+			if (IndexOfSelectedItem >= PlayList.Count - 1)
+				IndexOfSelectedItem = 0;
+			else
+				IndexOfSelectedItem++;
+
+			_selectedItem = PlayList[IndexOfSelectedItem];
+			MusicEngine.IntiFile(_selectedItem);
+
+		}
+
+
+		//BeforeFileButton
+		private void BeforeExecuteMethod(object obj)
+		{
+			if (!IsIndexOfSelectedItemCurrent)
+			{
+				this.UpdateIndexOfSelectedItem();
+			}
+
+			if (IndexOfSelectedItem <= 0)
+				IndexOfSelectedItem = PlayList.Count - 1;
+			else
+				IndexOfSelectedItem--;
+
+			_selectedItem = PlayList[IndexOfSelectedItem];
+			MusicEngine.IntiFile(_selectedItem);
+
+		}
+
+
+		//OpenFolder(Path)Button
+		private void OpenFolderExecuteMethod(object obj)
 		{
 			//STOP Stream
 			MusicEngine.Stop();
@@ -118,13 +187,34 @@ namespace WPFMusicplayer
 			}
 		}
 
-		private bool OpenFolderCanExecuteMethod(object path)
+		private bool OpenFolderCanExecuteMethod(object obj)
 		{
 			//change this if any condition added
 			return true;
 		}
 
+		//SkipSecNextButton
+		private void SkipSecNextExecuteMethod(object obj)
+		{
+			MusicEngine.GetCurrentWaveStream().Skip(10);
+		}
+
+
+		//SkipSecNextButton
+		private void SkipSecBeforeExecuteMethod(object obj)
+		{
+			MusicEngine.GetCurrentWaveStream().Skip(-10);
+		}
+
+
 		#endregion
+
+		private	void UpdateIndexOfSelectedItem()
+		{
+			IndexOfSelectedItem = _playList.IndexOf(_selectedItem);
+			IsIndexOfSelectedItemCurrent = true;
+		}
+
 		private void MakePlayList(string keyWord)
 		{
 			_playList.Clear();

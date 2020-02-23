@@ -213,15 +213,20 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button x:Name="add10Btn" BorderBrush ="{x:Null}" Style="{StaticResource addNumBtnStyle}" Foreground="Transparent"  Height="40" Margin="225,0,57,0" RenderTransformOrigin="2.3,0.525">
-                    <TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="40" >
+                <Button x:Name="add10Btn" BorderBrush ="{x:Null}" Style="{StaticResource addNumBtnStyle}" Foreground="Transparent" 
+                        Height="40" Margin="225,0,57,0" RenderTransformOrigin="2.3,0.525"
+                        Command="{Binding SkipSecNextCommand}">
+                    <TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="40"  >
 						<TextBlock.Foreground>
 							<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
 						</TextBlock.Foreground>
 						<TextBlock.Text>+10</TextBlock.Text>
 					</TextBlock>
 				</Button>
-                <Button x:Name="minus10Btn" BorderBrush ="{x:Null}" Style="{StaticResource minusNumBtnStyle}"  Foreground="Transparent"  Height="40" Margin="85,0,197,0" RenderTransformOrigin="2.3,0.525">
+                
+                <Button x:Name="minus10Btn" BorderBrush ="{x:Null}" Style="{StaticResource minusNumBtnStyle}"  Foreground="Transparent" 
+                        Height="40" Margin="85,0,197,0" RenderTransformOrigin="2.3,0.525"
+                        Command="{Binding SkipSecBeforeCommand}">
                     <TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="30" >
 						<TextBlock.Foreground>
 							<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
@@ -229,9 +234,13 @@
 						<TextBlock.Text>-10</TextBlock.Text>
 					</TextBlock>
 				</Button>
-                <Button x:Name="rightNextBtn" BorderBrush ="{x:Null}" Style="{StaticResource nextBtnStyle}" Foreground="Transparent"  Width ="40" Height="40" Margin="290,0,20,0" RenderTransformOrigin="2.3,0.525" Grid.ColumnSpan="2">
-                </Button>
-                <Button x:Name="leftNextBtn" BorderBrush ="{x:Null}" Style="{StaticResource beforeBtnStyle}" Foreground="Transparent"  Height="40" Margin="20,0,262,0" RenderTransformOrigin="0.512,0.512">
+                <Button x:Name="rightNextBtn" BorderBrush ="{x:Null}" Style="{StaticResource nextBtnStyle}" Foreground="Transparent" 
+                        Width ="40" Height="40" Margin="290,0,20,0" RenderTransformOrigin="2.3,0.525" Grid.ColumnSpan="2" VerticalAlignment="Top"
+                        Command="{Binding NextFileCommand}"/>
+
+                <Button x:Name="leftNextBtn" BorderBrush ="{x:Null}" Style="{StaticResource beforeBtnStyle}" Foreground="Transparent" 
+                        Height="40" Margin="20,0,262,0" RenderTransformOrigin="0.512,0.512"
+                        Command="{Binding BeforeFileCommand}">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
