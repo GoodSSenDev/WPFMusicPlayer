@@ -15,35 +15,35 @@
     </Window.Resources>
 
     <Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition/>
-			<ColumnDefinition Width="0*"/>
-			<ColumnDefinition Width="139*"/>
-		</Grid.ColumnDefinitions>
-		<!--Background-->
-		<Grid.Background>
-			<ImageBrush ImageSource="Assert/Background/concrete1.jpg" Stretch="UniformToFill"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="139*"/>
+        </Grid.ColumnDefinitions>
+        <!--Background-->
+        <Grid.Background>
+            <ImageBrush ImageSource="Assert/Background/concrete1.jpg" Stretch="UniformToFill"/>
 
-		</Grid.Background>
-		<!--Left Side Top Side Grid-->
-		<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="225" Width="350" Grid.ColumnSpan="3">
+        </Grid.Background>
+        <!--Left Side Top Side Grid-->
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="225" Width="350" Grid.ColumnSpan="3">
 
 
         </Grid>
-		<!--Left Side Bottom Side Grid-->
-		<Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="225" Width="350" Grid.ColumnSpan="3">
-			<Grid HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="350">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="23*"/>
-					<ColumnDefinition Width="2*"/>
-				</Grid.ColumnDefinitions>
+        <!--Left Side Bottom Side Grid-->
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="225" Width="350" Grid.ColumnSpan="3">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="350">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.Background>
                     <ImageBrush/>
                 </Grid.Background>
                 <Button x:Name="startBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="155,0,127,0" 
                         RenderTransformOrigin="2.3,0.525" Command= "{Binding StartPauseCommand}">
                     <Button.Template>
-                        
+
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid>
                                 <Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
@@ -217,23 +217,23 @@
                         Height="40" Margin="225,0,57,0" RenderTransformOrigin="2.3,0.525"
                         Command="{Binding SkipSecNextCommand}">
                     <TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="40"  >
-						<TextBlock.Foreground>
-							<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-						</TextBlock.Foreground>
-						<TextBlock.Text>+10</TextBlock.Text>
-					</TextBlock>
-				</Button>
-                
+                        <TextBlock.Foreground>
+                            <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                        </TextBlock.Foreground>
+                        <TextBlock.Text>+10</TextBlock.Text>
+                    </TextBlock>
+                </Button>
+
                 <Button x:Name="minus10Btn" BorderBrush ="{x:Null}" Style="{StaticResource minusNumBtnStyle}"  Foreground="Transparent" 
                         Height="40" Margin="85,0,197,0" RenderTransformOrigin="2.3,0.525"
                         Command="{Binding SkipSecBeforeCommand}">
                     <TextBlock FontSize="20" FontWeight="Bold" Background="Transparent" Height="30" Width="30" >
-						<TextBlock.Foreground>
-							<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-						</TextBlock.Foreground>
-						<TextBlock.Text>-10</TextBlock.Text>
-					</TextBlock>
-				</Button>
+                        <TextBlock.Foreground>
+                            <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                        </TextBlock.Foreground>
+                        <TextBlock.Text>-10</TextBlock.Text>
+                    </TextBlock>
+                </Button>
                 <Button x:Name="rightNextBtn" BorderBrush ="{x:Null}" Style="{StaticResource nextBtnStyle}" Foreground="Transparent" 
                         Width ="40" Height="40" Margin="290,0,20,0" RenderTransformOrigin="2.3,0.525" Grid.ColumnSpan="2" VerticalAlignment="Top"
                         Command="{Binding NextFileCommand}"/>
@@ -250,137 +250,137 @@
                         </TransformGroup>
                     </Button.RenderTransform>
                 </Button>
-			</Grid>
-			<ProgressBar x:Name ="audioProgress"  HorizontalAlignment="Left" Height="40" Margin="10,148,0,0" VerticalAlignment="Top" Width="330">
-				<ProgressBar.Template>
-					<ControlTemplate TargetType="ProgressBar">
-						<Grid x:Name="Root">
-							<Border Name="PART_Track" Background="Transparent" BorderBrush="Gray" Opacity="1" BorderThickness="2">
+            </Grid>
+            <ProgressBar x:Name ="audioProgress"  HorizontalAlignment="Left" Height="13" Margin="10,175,0,0" VerticalAlignment="Top" Width="330" ValueChanged="audioProgress_ValueChanged">
+                <ProgressBar.Template>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid x:Name="Root">
+                            <Border Name="PART_Track" Background="Transparent" BorderBrush="Gray" Opacity="1" BorderThickness="2">
 
-							</Border>
-							<Border Name="PART_Indicator" BorderBrush="Transparent" BorderThickness="2" HorizontalAlignment="Left">
-								<Border.Background>
-									<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-								</Border.Background>
-							</Border>
-						</Grid>
-					</ControlTemplate>
-				</ProgressBar.Template>
-			</ProgressBar>
-			<TextBlock x:Name="totalTime" FontSize="14" FontWeight="Bold" Background="Transparent" Margin="10,188,282,17" >
-				<TextBlock.Foreground>
-					<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-				</TextBlock.Foreground>
-				<TextBlock.Text>10:10:10</TextBlock.Text>
-			</TextBlock>
-			<TextBlock x:Name="currentTime" FontSize="14" FontWeight="Bold" Background="Transparent" Margin="282,188,10,17" >
-				<TextBlock.Foreground>
-					<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-				</TextBlock.Foreground>
-				<TextBlock.Text>10:10:10</TextBlock.Text>
-			</TextBlock>
-		</Grid>
+                            </Border>
+                            <Border Name="PART_Indicator" BorderBrush="Transparent" BorderThickness="2" HorizontalAlignment="Left">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                                </Border.Background>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </ProgressBar.Template>
+            </ProgressBar>
+            <TextBlock x:Name="totalTime" FontSize="14" FontWeight="Bold" Background="Transparent" Margin="10,188,282,17" >
+                <TextBlock.Foreground>
+                    <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                </TextBlock.Foreground>
+                <TextBlock.Text>10:10:10</TextBlock.Text>
+            </TextBlock>
+            <TextBlock x:Name="currentTime" FontSize="14" FontWeight="Bold" Background="Transparent" Margin="282,188,10,17" >
+                <TextBlock.Foreground>
+                    <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                </TextBlock.Foreground>
+                <TextBlock.Text>10:10:10</TextBlock.Text>
+            </TextBlock>
+        </Grid>
 
 
-		<!--Right Side Grid-->
-		<StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="350" Grid.Column="2">
-			<Button x:Name="exitBtn"  HorizontalAlignment="Right" Width="23" Height="21" RenderTransformOrigin="0.5,0.5" Click="ExitBtn_Click_1">
-				<Button.Template>
-					<ControlTemplate TargetType="{x:Type Button}">
+        <!--Right Side Grid-->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="350" Grid.Column="2">
+            <Button x:Name="exitBtn"  HorizontalAlignment="Right" Width="23" Height="21" RenderTransformOrigin="0.5,0.5" Click="ExitBtn_Click_1">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
 
-						<Label x:Name ="text" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="Gray" BorderThickness="1" FontSize="10"  Height="20" Width="20"  Background="Transparent" Margin="0,0,0,-12" Content=" " RenderTransformOrigin="0.5,0.549" >
-							<Label.Foreground>
-								<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-							</Label.Foreground>
-						</Label>
+                        <Label x:Name ="text" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="Gray" BorderThickness="1" FontSize="10"  Height="20" Width="20"  Background="Transparent" Margin="0,0,0,-12" Content=" " RenderTransformOrigin="0.5,0.549" >
+                            <Label.Foreground>
+                                <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                            </Label.Foreground>
+                        </Label>
 
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsMouseOver" Value="true">
-								<Setter Property="Background" Value="Crimson" TargetName="text"/>
-							</Trigger>
-							<Trigger Property="IsPressed" Value="true">
-								<Setter Property="Background" Value="Black" TargetName="text"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Button.Template>
-			</Button>
-			<StackPanel Orientation="Horizontal">
-				<!--PATH BUTTON-->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="Crimson" TargetName="text"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" Value="Black" TargetName="text"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <StackPanel Orientation="Horizontal">
+                <!--PATH BUTTON-->
                 <Button x:Name="addPath" Background="Transparent"  BorderBrush="Gray" BorderThickness="1" Height="31" Width="63" Command="{Binding OpenFolderCommand}">
                     <Button.Foreground>
-						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-					</Button.Foreground>
-					<Button.Template>
-						<ControlTemplate TargetType="{x:Type Button}">
-							<Grid>
-								<Label x:Name ="text" BorderBrush="Gray" BorderThickness="1" FontSize="14" FontWeight="Bold" Height="Auto" Width="Auto"  Background="Transparent" Content="+PATH" >
-									<Label.Foreground>
-										<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-									</Label.Foreground>
-								</Label>
-								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-							</Grid>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsMouseOver" Value="true">
-									<Setter Property="Background" Value="DodgerBlue" TargetName="text"/>
-								</Trigger>
-								<Trigger Property="IsPressed" Value="true">
-									<Setter Property="Background" Value="Black" TargetName="text"/>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Button.Template>
+                        <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                    </Button.Foreground>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Label x:Name ="text" BorderBrush="Gray" BorderThickness="1" FontSize="14" FontWeight="Bold" Height="Auto" Width="Auto"  Background="Transparent" Content="+PATH" >
+                                    <Label.Foreground>
+                                        <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                                    </Label.Foreground>
+                                </Label>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" Value="DodgerBlue" TargetName="text"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Background" Value="Black" TargetName="text"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
 
-				</Button>
-				<!--Path Label-->
+                </Button>
+                <!--Path Label-->
                 <Label x:Name="pathLabel" Content="{Binding Path = FilePath,UpdateSourceTrigger=PropertyChanged}" FontSize="14" FontWeight="Bold" BorderBrush="Gray" BorderThickness="1" Width="277">
-					<Label.Foreground>
-						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-					</Label.Foreground>
+                    <Label.Foreground>
+                        <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                    </Label.Foreground>
 
-				</Label>
-			</StackPanel>
-			<StackPanel Orientation="Horizontal" Margin="0,0,10,0">
-				<Label FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" BorderBrush="Gray" BorderThickness="1" Content="Search :">
-					<Label.Foreground>
-						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-					</Label.Foreground>
-				</Label>
-				<TextBox x:Name="searchLabel" Text ="{Binding Path = SearchLabel,UpdateSourceTrigger=PropertyChanged}"  Width="277" FontSize="12"  Background="Transparent" BorderBrush="Green" BorderThickness="1" >
-					<TextBox.Foreground>
-						<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-					</TextBox.Foreground>
-				</TextBox>
-			</StackPanel>
-			<TextBlock/>
-			<ListBox x:Name="playList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                </Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                <Label FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" BorderBrush="Gray" BorderThickness="1" Content="Search :">
+                    <Label.Foreground>
+                        <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                    </Label.Foreground>
+                </Label>
+                <TextBox x:Name="searchLabel" Text ="{Binding Path = SearchLabel,UpdateSourceTrigger=PropertyChanged}"  Width="277" FontSize="12"  Background="Transparent" BorderBrush="Green" BorderThickness="1" >
+                    <TextBox.Foreground>
+                        <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                    </TextBox.Foreground>
+                </TextBox>
+            </StackPanel>
+            <TextBlock/>
+            <ListBox x:Name="playList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource ="{Binding Path = PlayList}" 
                      SelectedItem="{Binding SelectedItem}"
                      BorderBrush="Transparent" Background="Transparent" Height="310" Margin="0,0,10,0" SelectionChanged="playList_SelectionChanged">
 
-				<ListBox.ItemTemplate>
-					<DataTemplate>
-						<Grid Margin="0,2">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="282" />
-								<ColumnDefinition Width="54" />
-							</Grid.ColumnDefinitions>
-							<TextBlock Grid.Column="0" Text="{Binding FileName}">
-								<TextBlock.Foreground>
-									<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-								</TextBlock.Foreground>
-							</TextBlock>
-							<TextBlock Grid.Column="1" Text="{Binding Length}">
-								<TextBlock.Foreground>
-									<ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
-								</TextBlock.Foreground>
-							</TextBlock>
-						</Grid>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
-		</StackPanel>
-	</Grid>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="282" />
+                                <ColumnDefinition Width="54" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding FileName}">
+                                <TextBlock.Foreground>
+                                    <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                                </TextBlock.Foreground>
+                            </TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding Length}">
+                                <TextBlock.Foreground>
+                                    <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                                </TextBlock.Foreground>
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </Grid>
 
 </Window>

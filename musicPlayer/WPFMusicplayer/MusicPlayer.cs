@@ -5,60 +5,89 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using NAudio.Wave;
 
 namespace WPFMusicplayer
 {
     public class MusicPlayer : INotifyPropertyChanged
     {
-
-        public static MusicPlayer _instance;
-        //Source and sync = where the data is going to 
-        private WaveFileReader wavStream;
-
+        #region Field
+        
         private DirectSoundOut directSoundOut;
 
-        private BlockAlignReductionStream mp3Stream;
+        private bool IsPositionTicking;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private bool _isPlaying;
+        private readonly DispatcherTimer positionTimer = new DispatcherTimer();
+
+        #endregion
+
+
+        private MusicPlayer()
+        {
+            isPlaying = false;
+            positionTimer.Interval = TimeSpan.FromMilliseconds(50);// every 50 ms fire PositionTick event
+            positionTimer.Tick += PositionTick;
+
+        }
+
+
+        public WaveStream ActiveStream
+        { get; set; }
+
+        private bool isPlaying;
         public bool IsPlaying
         {
-            get { return _isPlaying; }
+            get { return isPlaying; }
             set
             {
-                _isPlaying = value;
+                isPlaying = value;
                 OnPropertyChanged("IsPlaying");
             }
         }
 
+        #region SingleTon
+        public static MusicPlayer instance;
 
-        private MusicPlayer() 
-        {
-            _isPlaying = false;
-
-        }
         public static MusicPlayer Instance
         {
             get
             {
-                if(_instance == null)
+                if (instance == null)
                 {
-                    _instance = new MusicPlayer();
+                    instance = new MusicPlayer();
                 }
-                return _instance;
+                return instance;
+            }
+        }
+        #endregion
+
+
+        #region Properties
+        private double musicPosition;
+
+        public double MusicPosition
+        {
+            get { return musicPosition; }
+            set
+            {
+
             }
         }
 
+        #endregion
+
+        #region FileRegardMethod
         private void InitWAV(string filePath)
         {
             //source
-            wavStream = new WaveFileReader(filePath);
+            ActiveStream = new WaveFileReader(filePath);
 
             directSoundOut = new DirectSoundOut();
 
-            directSoundOut.Init(new WaveChannel32(wavStream));
+            directSoundOut.Init(new WaveChannel32(ActiveStream));
 
         }
 
@@ -66,26 +95,16 @@ namespace WPFMusicplayer
         {
             WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(new Mp3FileReader(filePath));
 
-            mp3Stream = new BlockAlignReductionStream(pcm);
+            ActiveStream = new BlockAlignReductionStream(pcm);
 
             directSoundOut = new DirectSoundOut();
 
-            directSoundOut.Init(mp3Stream);
+            directSoundOut.Init(ActiveStream);
 
             // Change the button to pause shape
 
         }
 
-        public WaveStream GetCurrentWaveStream()
-        {
-            if (wavStream != null)
-                return wavStream;
-
-            if (mp3Stream != null)
-                return mp3Stream;
-
-            return null;
-        }
 
         public void IntiFile(MusicElement file)
         {
@@ -107,14 +126,36 @@ namespace WPFMusicplayer
             catch
             {
                 MessageBox.Show("Exception occurs");
-                mp3Stream = null;
-                wavStream = null;
+                ActiveStream = null;
 
             }
 
             this.Play();
 
         }
+
+        private void StopAndCloseStream()
+        {
+            IsPlaying = false;
+            if (directSoundOut != null)
+            {
+                directSoundOut.Stop();
+            }
+            if (ActiveStream != null)//Check object hoiding resources(pcm or MP3Reader)
+            {
+                ActiveStream.Close();
+                ActiveStream = null;
+            }
+            if (directSoundOut != null)
+            {
+                directSoundOut.Dispose();
+                directSoundOut = null;
+            }
+
+        }
+        #endregion
+
+        #region ControlRegardMethod
         public void Play()
         {
             IsPlaying = true;
@@ -132,35 +173,29 @@ namespace WPFMusicplayer
             IsPlaying = false;
             directSoundOut?.Pause();
         }
+        #endregion
 
-        private void StopAndCloseStream()
+        #region EventHandler
+
+        private void PositionTick(object sender, EventArgs e)
         {
-            IsPlaying = false;
-            if (directSoundOut != null)
-            {
-                directSoundOut.Stop();
-            }
-            if(wavStream != null)
-            {
-                wavStream.Close(); 
-                wavStream = null;
-            }
-            if(mp3Stream != null)
-            {
-                mp3Stream.Close();//Check object hoiding resources(pcm or MP3Reader)
-                mp3Stream = null;
-            }
-            if (directSoundOut != null)
-            {
-                directSoundOut.Dispose();
-                directSoundOut = null;
-            }
+            IsPositionTicking = true;
 
+            if(ActiveStream != null)
+                MusicPosition = ((double)ActiveStream.Position / (double)ActiveStream.Length) * ActiveStream.TotalTime.TotalSeconds;
+
+            IsPositionTicking = false;
         }
+
+        public WaveStream GetCurrentWaveStream()
+        {
+            return ActiveStream;
+        }
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
+        #endregion 
     }
 }

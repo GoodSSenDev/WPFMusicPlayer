@@ -54,5 +54,10 @@ namespace WPFMusicplayer
 		{
 
 		}
+
+		private void audioProgress_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		{
+
+		}
 	}
 }
