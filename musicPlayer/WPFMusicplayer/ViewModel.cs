@@ -10,10 +10,11 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using WPFMusicplayer.Commands;
+using System.Windows.Controls;
 
 namespace WPFMusicplayer
 {
-    public class ViewModel : INotifyPropertyChanged
+	public class ViewModel : INotifyPropertyChanged
 	{
 		public MusicPlayer MusicEngine
 		{
@@ -24,7 +25,8 @@ namespace WPFMusicplayer
 		public ViewModel()
 		{
 			MusicEngine = MusicPlayer.Instance;
-			audioProgress.Click;
+			audioProgress
+
 			StartPauseCommand = new DelegateCommand(StartPauseExecuteMethod, ControlRelatedButtonCanExecuteMethod);
 			NextFileCommand = new DelegateCommand(NextExecuteMethod, ControlRelatedButtonCanExecuteMethod);
 			BeforeFileCommand = new DelegateCommand(BeforeExecuteMethod, ControlRelatedButtonCanExecuteMethod);
@@ -33,15 +35,15 @@ namespace WPFMusicplayer
 			OpenFolderCommand = new Command(OpenFolderExecuteMethod, OpenFolderCanExecuteMethod);
 
 		}
-		
+
 
 		#region properties
 
-		
-		ObservableCollection<MusicElement> _playList = new ObservableCollection<MusicElement>();
 
 
-		
+
+
+
 		public ICommand StartPauseCommand { get; set; }
 
 		public ICommand NextFileCommand { get; set; }
@@ -55,47 +57,47 @@ namespace WPFMusicplayer
 		public ICommand OpenFolderCommand { get; set; }
 
 
-
+		ObservableCollection<MusicElement> playList = new ObservableCollection<MusicElement>();
 		public ObservableCollection<MusicElement> PlayList
 		{
-			get { return _playList; }
-		}					
+			get { return playList; }
+		}
 
 		private int IndexOfSelectedItem { get; set; }
 
 
 		private bool IsIndexOfSelectedItemCurrent
 		{
-			get;set;
+			get; set;
 		}
 
 
-		MusicElement _selectedItem;
+		MusicElement selectedItem;
 		public MusicElement SelectedItem
 		{
-			get { return _selectedItem; }
-			set 
+			get { return selectedItem; }
+			set
 			{
 				IsIndexOfSelectedItemCurrent = false;
-				_selectedItem = value;
-				if (_selectedItem != null) MusicEngine.IntiFile(_selectedItem);
+				selectedItem = value;
+				if (selectedItem != null) MusicEngine.IntiFile(selectedItem);
 			}
 		}
 
 
-		string _searchLabel;
+		string searchLabel;
 		public string SearchLabel
 		{
 
-			get { return _searchLabel; }
+			get { return searchLabel; }
 			set
 			{
-				_searchLabel = value;
+				searchLabel = value;
 				OnPropertyChanged("SearchLabel");
-				MakePlayList(_searchLabel);
+				MakePlayList(searchLabel);
 			}
 		}
-		
+
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		string _filePath;
@@ -108,9 +110,9 @@ namespace WPFMusicplayer
 				OnPropertyChanged("FilePath");
 			}
 		}
-        #endregion
+		#endregion
 
-        #region Commands
+		#region Commands
 
 		//Start/Pause button
 		private void StartPauseExecuteMethod(object obj)
@@ -125,18 +127,18 @@ namespace WPFMusicplayer
 
 		private bool ControlRelatedButtonCanExecuteMethod(object obj)
 		{
-			if (_selectedItem == null)
+			if (selectedItem == null)
 				return false;
 			if (PlayList.Count <= 0)
 				return false;
 			return true;
-			
+
 		}
 
 		//NextFileButton
 		private void NextExecuteMethod(object obj)
 		{
-			if(!IsIndexOfSelectedItemCurrent)
+			if (!IsIndexOfSelectedItemCurrent)
 			{
 				this.UpdateIndexOfSelectedItem();
 			}
@@ -146,8 +148,8 @@ namespace WPFMusicplayer
 			else
 				IndexOfSelectedItem++;
 
-			_selectedItem = PlayList[IndexOfSelectedItem];
-			MusicEngine.IntiFile(_selectedItem);
+			selectedItem = PlayList[IndexOfSelectedItem];
+			MusicEngine.IntiFile(selectedItem);
 
 		}
 
@@ -165,8 +167,8 @@ namespace WPFMusicplayer
 			else
 				IndexOfSelectedItem--;
 
-			_selectedItem = PlayList[IndexOfSelectedItem];
-			MusicEngine.IntiFile(_selectedItem);
+			selectedItem = PlayList[IndexOfSelectedItem];
+			MusicEngine.IntiFile(selectedItem);
 
 		}
 
@@ -184,7 +186,7 @@ namespace WPFMusicplayer
 			if (cofd.ShowDialog() == CommonFileDialogResult.Ok)
 			{
 				FilePath = cofd.FileName;
-				MakePlayList(_searchLabel);
+				MakePlayList(searchLabel);
 			}
 		}
 
@@ -210,20 +212,20 @@ namespace WPFMusicplayer
 
 		#endregion
 
-		private	void UpdateIndexOfSelectedItem()
+		private void UpdateIndexOfSelectedItem()
 		{
-			IndexOfSelectedItem = _playList.IndexOf(_selectedItem);
+			IndexOfSelectedItem = playList.IndexOf(selectedItem);
 			IsIndexOfSelectedItemCurrent = true;
 		}
 
 		private void MakePlayList(string keyWord)
 		{
-			_playList.Clear();
+			playList.Clear();
 			DirectoryInfo folder = new DirectoryInfo(FilePath);// error
 			FileInfo[] files = folder.GetFiles("*" + keyWord + "*.mp3", 0);
 			foreach (FileInfo file in files)
 			{
-				_playList.Add(new MP3Element(file.FullName));
+				playList.Add(new MP3Element(file.FullName));
 			}
 		}
 
@@ -237,6 +239,11 @@ namespace WPFMusicplayer
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
+
+		private void ShowMessage(object sender, RoutedEventArgs e)
+		{
+			MessageBox.Show("this is success");
+		}//Start From here
 	}
 
 

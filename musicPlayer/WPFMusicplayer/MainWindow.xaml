@@ -40,7 +40,7 @@
                 <Grid.Background>
                     <ImageBrush/>
                 </Grid.Background>
-                <Button x:Name="startBtn" BorderBrush ="{x:Null}"  Foreground="Transparent"  Height="40" Margin="155,0,127,0" 
+                <Button x:Name="startBtn" BorderBrush ="{x:Null}" Foreground="Transparent"  Height="40" Margin="155,0,127,0" 
                         RenderTransformOrigin="2.3,0.525" Command= "{Binding StartPauseCommand}">
                     <Button.Template>
 
@@ -251,7 +251,11 @@
                     </Button.RenderTransform>
                 </Button>
             </Grid>
-            <ProgressBar x:Name ="audioProgress"  HorizontalAlignment="Left" Height="13" Margin="10,175,0,0" VerticalAlignment="Top" Width="330" ValueChanged="audioProgress_ValueChanged">
+            <ProgressBar x:Name ="audioProgress" HorizontalAlignment="Left" Height="13" Margin="10,175,0,0" VerticalAlignment="Top"
+                         Width="330" ValueChanged="audioProgress_ValueChanged">
+                <ProgressBar.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ShowMessage}" />
+                </ProgressBar.InputBindings>
                 <ProgressBar.Template>
                     <ControlTemplate TargetType="ProgressBar">
                         <Grid x:Name="Root">
