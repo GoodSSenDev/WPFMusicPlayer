@@ -25,8 +25,6 @@ namespace WPFMusicplayer
 		public ViewModel()
 		{
 			MusicEngine = MusicPlayer.Instance;
-			audioProgress
-
 			StartPauseCommand = new DelegateCommand(StartPauseExecuteMethod, ControlRelatedButtonCanExecuteMethod);
 			NextFileCommand = new DelegateCommand(NextExecuteMethod, ControlRelatedButtonCanExecuteMethod);
 			BeforeFileCommand = new DelegateCommand(BeforeExecuteMethod, ControlRelatedButtonCanExecuteMethod);
@@ -34,6 +32,7 @@ namespace WPFMusicplayer
 			SkipSecBeforeCommand = new DelegateCommand(SkipSecBeforeExecuteMethod, ControlRelatedButtonCanExecuteMethod);
 			OpenFolderCommand = new Command(OpenFolderExecuteMethod, OpenFolderCanExecuteMethod);
 
+			MusicEngine.MusicEnd += NextExecuteMethod;
 		}
 
 

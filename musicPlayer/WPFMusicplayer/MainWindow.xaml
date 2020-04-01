@@ -250,9 +250,14 @@
                         </TransformGroup>
                     </Button.RenderTransform>
                 </Button>
+
             </Grid>
             <ProgressBar x:Name ="audioProgress" HorizontalAlignment="Left" Height="13" Margin="10,175,0,0" VerticalAlignment="Top"
-                         Width="330" ValueChanged="audioProgress_ValueChanged">
+                         Width="330" 
+                         Minimum="0"
+                         Maximum="{Binding Path = MusicEngine.MusicLength,UpdateSourceTrigger=PropertyChanged}"
+                         Value="{Binding Path = MusicEngine.MusicPosition,UpdateSourceTrigger=PropertyChanged}" 
+                         ValueChanged="audioProgress_ValueChanged">
                 <ProgressBar.InputBindings>
                     <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ShowMessage}" />
                 </ProgressBar.InputBindings>
@@ -271,17 +276,20 @@
                     </ControlTemplate>
                 </ProgressBar.Template>
             </ProgressBar>
-            <TextBlock x:Name="totalTime" FontSize="14" FontWeight="Bold" Background="Transparent" Margin="10,188,282,17" >
+            <TextBlock x:Name="totalTime" FontSize="14" FontWeight="Bold" Background="Transparent" 
+                       Margin="78,188,214,17"
+                       Text="{Binding MusicEngine.TotalTime}">
                 <TextBlock.Foreground>
                     <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
                 </TextBlock.Foreground>
-                <TextBlock.Text>10:10:10</TextBlock.Text>
+                
             </TextBlock>
-            <TextBlock x:Name="currentTime" FontSize="14" FontWeight="Bold" Background="Transparent" Margin="282,188,10,17" >
+            <TextBlock x:Name="currentTime" FontSize="14" FontWeight="Bold" Background="Transparent"
+                       Margin="10,188,272,17"
+                      Text="{Binding MusicEngine.CurrTime}">
                 <TextBlock.Foreground>
                     <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
                 </TextBlock.Foreground>
-                <TextBlock.Text>10:10:10</TextBlock.Text>
             </TextBlock>
         </Grid>
 

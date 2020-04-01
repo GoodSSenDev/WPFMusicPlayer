@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,15 @@ using NAudio.Wave;
 
 namespace WPFMusicplayer
 {
+    public delegate void MusicDelegate(object obj);
+
     public class MusicPlayer : INotifyPropertyChanged
     {
         #region Field
-        
         private DirectSoundOut directSoundOut;
-
         private bool IsPositionTicking;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        private bool inMusicPositionSet;
+        public event PropertyChangedEventHandler PropertyChanged;         
         private readonly DispatcherTimer positionTimer = new DispatcherTimer();
 
         #endregion
@@ -30,23 +30,12 @@ namespace WPFMusicplayer
             isPlaying = false;
             positionTimer.Interval = TimeSpan.FromMilliseconds(50);// every 50 ms fire PositionTick event
             positionTimer.Tick += PositionTick;
-
+            positionTimer.Tick += CheckMusicEnd;
+            positionTimer.Start();
         }
 
 
-        public WaveStream ActiveStream
-        { get; set; }
 
-        private bool isPlaying;
-        public bool IsPlaying
-        {
-            get { return isPlaying; }
-            set
-            {
-                isPlaying = value;
-                OnPropertyChanged("IsPlaying");
-            }
-        }
 
         #region SingleTon
         public static MusicPlayer instance;
@@ -64,16 +53,82 @@ namespace WPFMusicplayer
         }
         #endregion
 
-
         #region Properties
-        private double musicPosition;
 
+        public MusicDelegate MusicEnd{ get;set;}
+        public string CurrTime
+        {
+            get 
+            { 
+                var t = TimeSpan.FromSeconds(musicPosition);
+                return t.ToString(@"hh\:mm\:ss" ) + "/";
+            }
+           
+        }
+
+        public WaveStream ActiveStream
+        { get; set; }
+
+        private bool isPlaying;
+        public bool IsPlaying
+        {
+            get { return isPlaying; }
+            set
+            {
+                isPlaying = value;
+                OnPropertyChanged("IsPlaying");
+            }
+        }
+
+        private double musicLength;
+        public double MusicLength
+        {
+            get { return musicLength; }
+            set
+            {
+                musicLength = value;
+                var t = TimeSpan.FromSeconds(musicLength);
+                TotalTime = t.ToString(@"hh\:mm\:ss");
+                OnPropertyChanged("MusicLength");
+
+            }
+        }
+
+        private string totalTime;
+        public string TotalTime
+        {
+            get { return totalTime;}
+            set
+            {
+                totalTime = value;
+
+                OnPropertyChanged("TotalTime");
+            }
+        }
+
+
+        private double musicPosition;
         public double MusicPosition
         {
             get { return musicPosition; }
             set
             {
-
+                if (!inMusicPositionSet)
+                {
+                    inMusicPositionSet = true;
+                    var oldPosition = musicPosition;
+                    if (!IsPositionTicking && ActiveStream != null)
+                    {
+                        ActiveStream.Position = (long)((value / ActiveStream.TotalTime.TotalSeconds) * ActiveStream.Length);
+                    }
+                    musicPosition = value;
+                    if (oldPosition != value)
+                    {
+                        OnPropertyChanged("MusicPosition");
+                        OnPropertyChanged("CurrTime");
+                    }
+                    inMusicPositionSet = false;
+                }
             }
         }
 
@@ -130,6 +185,7 @@ namespace WPFMusicplayer
 
             }
 
+            MusicLength = ActiveStream.TotalTime.TotalSeconds;
             this.Play();
 
         }
@@ -173,6 +229,10 @@ namespace WPFMusicplayer
             IsPlaying = false;
             directSoundOut?.Pause();
         }
+        private void MusicEndExecute(object obj)
+        {
+            MusicEnd?.Invoke(obj);
+        }
         #endregion
 
         #region EventHandler
@@ -180,13 +240,21 @@ namespace WPFMusicplayer
         private void PositionTick(object sender, EventArgs e)
         {
             IsPositionTicking = true;
-
-            if(ActiveStream != null)
+            if (ActiveStream != null)
                 MusicPosition = ((double)ActiveStream.Position / (double)ActiveStream.Length) * ActiveStream.TotalTime.TotalSeconds;
-
             IsPositionTicking = false;
         }
+        private void CheckMusicEnd(object sender, EventArgs e)
+        {
 
+            if (ActiveStream != null)
+                if (musicPosition >= musicLength)
+                {
+                    object obj = this;
+                    this.MusicEndExecute(obj);
+                }
+
+        }
         public WaveStream GetCurrentWaveStream()
         {
             return ActiveStream;

@@ -26,8 +26,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
     <Style x:Key="pauseBtnStyle" TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
@@ -309,6 +307,34 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <ControlTemplate x:Key="beforeBtnTemplate" TargetType="{x:Type Button}">
+        <Grid>
+            <Ellipse x:Name="ell" StrokeThickness="1.2" Fill="Transparent">
+                <Ellipse.Stroke>
+                    <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                </Ellipse.Stroke>
+            </Ellipse>
+            <Polygon Points="10,8 10,33 28,20.1">
+                <Polygon.Fill>
+                    <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                </Polygon.Fill>
+            </Polygon>
+            <Polygon Points="24,8 24,33 38,20.1">
+                <Polygon.Fill>
+                    <ImageBrush ImageSource="Assert/Texture/ChalkTexture1.JPG"/>
+                </Polygon.Fill>
+            </Polygon>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Fill" Value="Green" TargetName="ell"></Setter>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Fill" Value="Black" TargetName="ell"></Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
 
 </ResourceDictionary>

@@ -36,7 +36,7 @@ namespace WPFMusicplayer.Commands
 
         }
 
-    public void Execute(object parameter)
+        public void Execute(object parameter)
         {
             _executeMethod.Invoke(parameter);
         }
